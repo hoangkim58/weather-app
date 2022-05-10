@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.8.0/dist/leaflet.css"
+        integrity="sha512-hoalWLoI8r4UszCkZ5kL8vayOGVae1oxXe/2A4AO6J9+580uKHDO3JdHb7NzwwzK5xr/Fs0W40kiNHxM9vyTtQ=="
+        crossorigin="" />
+    <link rel="stylesheet" href="./index.css">
+    <script src="https://unpkg.com/leaflet@1.8.0/dist/leaflet.js"
+        integrity="sha512-BB3hKbKWOc9Ez/TAwyWxNXeoV9c1v6FIeYiBieIWkpLjauysF18NzgR1MBNBXf8/KABdlkX68nAhlwcDFLGPCQ=="
+        crossorigin=""></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://kit.fontawesome.com/b754d52801.js" crossorigin="anonymous"></script>
+    <script defer src="./index.js"></script>
+    <title>Weather App</title>
+</head>
+
+<body>
+    <div class="app">
+        <div class="app_header">
+
+            <div class="app_header-search">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <input class="app_header-search-input" />
+                <i class="fa-solid fa-microphone microphone"></i>
+            </div>
+        </div>
+
+        <div class="app_main">
+            <div class="app_main-position m-auto">--</div>
+            <div class="app_main-conditions m-auto">--</div>
+            <div class="m-auto">
+                <img class="app_main-conditions-icon " src=" http://openweathermap.org/img/wn/10d@2x.png"
+                    alt="weather icon">
+            </div>
+            <div class="app_main-temperature m-auto">--</div>
+        </div>
+        <div id="map"></div>
+        <div class="app_footer">
+            <div class="app_footer-detail">
+                <div class="app_footer-detail-item">MT mọc: <span class="sunrise">--</span></div>
+                <div class="app_footer-detail-item">MT lặn: <span class="sunset">--</span></div>
+                <div class="app_footer-detail-item ">Độ ẩm: <span class="humidity">--</span>%</div>
+                <div class="app_footer-detail-item ">Gió: <span class="wind-speed">--</span> km/h</div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
