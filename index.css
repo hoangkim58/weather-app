@@ -7,7 +7,7 @@
     border-radius: 5px;
     margin: 50px auto;
     padding: 10px;
-    width: 20rem; 
+    width: 20rem;
     color: #fff;
     background-color: #3498DB;
 }
@@ -38,11 +38,37 @@
     background-color: transparent;
     outline: unset;
     border: none;
-    color: #333;
+    color: #fff;
 }
 
 .microphone {
     position: relative;
+    text-align: center;
+    width: 20px;
+    border-radius: 50%;
+}
+
+.microphone--listening { 
+    animation: listening ease-in 0.8s infinite;
+}
+ 
+@keyframes listening {
+    from {  
+        color: red;
+        transform: scale(1); 
+        border: 2px dashed transparent;
+    }
+    
+    to {
+        border: 2px dashed #333;
+        transform: scale(1.2);
+        color: red;
+    }
+}
+
+.record-icon--on {
+    animation: fading ease-in 0.8s infinite;
+    display: block;
 }
 
 .microphone:active {
@@ -62,7 +88,7 @@
 }
 
 .app_main-conditions {
-    display:flex;
+    display: flex;
     justify-content: center;
     font-size: 20px;
     line-height: 20px;
@@ -72,7 +98,7 @@
     width: 50px;
 }
 
-.app_main-temperature { 
+.app_main-temperature {
     position: relative;
     font-size: 60px;
     line-height: 60px;
@@ -97,7 +123,7 @@
 
 .app_footer-detail {
     margin: 20px auto;
-    display:flex;
+    display: flex;
     width: 100%;
     flex-wrap: wrap;
 }
@@ -106,4 +132,3 @@
     width: 50%;
 
 }
-

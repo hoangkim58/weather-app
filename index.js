@@ -1,6 +1,7 @@
 
 const API = 'daa0212fbd13a05d0ba5bc59cfd50f8a'
 
+// components that need to be rendered
 const inputCity = $('.app_header-search-input')
 const DEFAULT_VALUE = '--'
 const position = $('.app_main-position')
@@ -12,12 +13,14 @@ const sunrise = $('.sunrise')
 const sunset = $('.sunset')
 const humidity = $('.humidity')
 const windSpeed = $('.wind-speed')
+const mapContainer = $('.map.container')
+const mapContent = $('#map')
 
 //map input 
 let latMap = ''
 let lonMap = ''
 
-
+// method used time format  
 const convertTime = (time) => {
     const timeStr = new Date(time * 1000).toString()
     const timeArr = timeStr.split(' ')
@@ -25,7 +28,7 @@ const convertTime = (time) => {
     return timeArr[4]
 }
 
-const innerContent = (data) => {
+const renderContent = (data) => {
 
     position.html(data.name || DEFAULT_VALUE)
     condition.html(data.weather[0].description || DEFAULT_VALUE)
@@ -50,22 +53,28 @@ inputCity.change((e) => {
 
             if (data.cod == 404) {
 
-                innerContent()
+                renderContent()
                 return
             }
 
             // render information
-            innerContent(data)
+            renderContent(data)
             // asssignment
             latMap = data.coord.lat
             lonMap = data.coord.lon
 
+            // check map existence
+            var container = L.DomUtil.get('map');
+            if (container != null) {
+                container._leaflet_id = null;
+            }
 
+            //
             var accessToken = 'pk.eyJ1IjoiaGtpbTU4OCIsImEiOiJjbDMwN2ZldnMwMHVlM2NvMm1kcWw3am10In0.L0Tywl3fahbhNvK6MY3EDw'
 
             var map = L.map('map').setView([latMap, lonMap], 11);
 
-            L.tileLayer(`https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=${accessToken}`, {
+            var config = L.tileLayer(`https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=${accessToken}`, {
                 attribution: `${data.name} | ${data.sys.country}`,
                 maxZoom: 30,
                 minZoom: 4,
@@ -73,16 +82,20 @@ inputCity.change((e) => {
                 tileSize: 512,
                 zoomOffset: -1,
                 accessToken: 'your.mapbox.access.token',
-            }).addTo(map);
+            })
 
-            L.geoJson(statesData).addTo(map);
+            config.addTo(map);
+
+            // insert icon check-in at the selected position
             var marker = L.marker([latMap, lonMap]).addTo(map);
             marker.bindPopup("The place you choose").openPopup();
+
+            return
         })
 
 })
 
 // virtual assistance
 microphone.click(() => {
-    console.log('listning.. ')
+    console.log('listning... ')
 })
