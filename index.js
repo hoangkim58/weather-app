@@ -29,6 +29,7 @@ const convertTime = (time) => {
     return timeArr[4]
 }
 
+//print weather conditions
 const renderContent = (data) => {
 
     position.html(data.name || DEFAULT_VALUE)
@@ -41,7 +42,6 @@ const renderContent = (data) => {
     weatherIcon.attr('src', ` http://openweathermap.org/img/wn/${data.weather[0].icon}.png`)
 
 }
-
 
 //handle data and show location on map
 const handleData = (position) => {
@@ -115,8 +115,6 @@ const backgroundColor = ['#fff', '#333', '#3498DB']
 const hour = new Date().getHours()
 const minute = new Date().getMinutes()
 
-console.log(hour, minute);
-
 let requestStr = ''
 
 // get position from voice message
@@ -138,7 +136,7 @@ const getColor = (str) => {
 recognition.lang = 'vi-VI';
 recognition.continuous = false;
 
-
+// start Recognition
 microphone2.addEventListener('click', (e) => {
     e.preventDefault
     recognition.start();
@@ -147,6 +145,7 @@ microphone2.addEventListener('click', (e) => {
 
 })
 
+// stop Recognition
 recognition.onspeechend = function () {
     recognition.stop();
     microphone.removeClass('microphone--listening')
@@ -165,8 +164,8 @@ recognition.onresult = (e) => {
 
     var isRequestWeatherForecast = requestStr.includes('thời tiết')
     var isRequestBackgroundColor = requestStr.includes('màu nền')
-    var isRequestBackgroundColor = requestStr.includes('mấy giờ')
-    console.log(requestStr);
+    var isRequestCurentTime = requestStr.includes('mấy giờ')
+    console.log('voice: ',requestStr);
 
     //
     if (isRequestWeatherForecast) {
@@ -187,10 +186,12 @@ recognition.onresult = (e) => {
     }
 
     //
-
+    if (isRequestCurentTime) {
+        console.log(hour , minute)
+        
+    }
 
 }
-
 
 // login facebook
 
