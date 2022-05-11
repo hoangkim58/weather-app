@@ -12,6 +12,9 @@
     <script src="https://unpkg.com/leaflet@1.8.0/dist/leaflet.js"
         integrity="sha512-BB3hKbKWOc9Ez/TAwyWxNXeoV9c1v6FIeYiBieIWkpLjauysF18NzgR1MBNBXf8/KABdlkX68nAhlwcDFLGPCQ=="
         crossorigin=""></script>
+    <script async defer crossorigin="anonymous" src="https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v13.0"
+        nonce="I679ov8w"></script>
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://kit.fontawesome.com/b754d52801.js" crossorigin="anonymous"></script>
     <script defer src="./index.js"></script>
@@ -24,8 +27,8 @@
 
             <div class="app_header-search">
                 <i class="fa-solid fa-magnifying-glass"></i>
-                <input class="app_header-search-input" placeholder="Enter your city name..." />
-                <i class="fa-solid fa-microphone microphone"></i> 
+                <input class="app_header-search-input" placeholder="Enter your city name..." value=""/>
+                <i class="fa-solid fa-microphone microphone"></i>
             </div>
         </div>
 
@@ -33,7 +36,7 @@
             <div class="app_main-position m-auto">--</div>
             <div class="app_main-conditions m-auto">--</div>
             <div class="m-auto">
-                <img class="app_main-conditions-icon " src=" http://openweathermap.org/img/wn/10d@2x.png"
+                <img class="app_main-conditions-icon " src=" http://openweathermap.org/img/wn/02d.png"
                     alt="weather icon">
             </div>
             <div class="app_main-temperature m-auto">--</div>
@@ -50,6 +53,12 @@
                 <div class="app_footer-detail-item ">Gió: <span class="wind-speed">--</span> km/h</div>
             </div>
         </div>
+        
+        <div id="fb-root">
+            <div class="fb-login-button" data-width="" data-size="large" data-button-type="continue_with"
+                data-layout="default" data-auto-logout-link="false" data-use-continue-as="false"></div>
+        </div>
+
     </div>
 </body>
 

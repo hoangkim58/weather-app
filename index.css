@@ -1,3 +1,7 @@
+body {
+    all: unset
+}
+
 .m-auto {
     margin: auto;
     width: max-content;
@@ -5,11 +9,12 @@
 
 .app {
     border-radius: 5px;
-    margin: 50px auto;
+    margin:30px auto;
     padding: 10px;
     width: 20rem;
     color: #fff;
     background-color: #3498DB;
+    border: 1px solid #333;
 }
 
 .app_header {
@@ -44,23 +49,27 @@
 .microphone {
     position: relative;
     text-align: center;
+    padding: 2px;
     width: 20px;
     border-radius: 50%;
+    cursor: pointer;
 }
 
-.microphone--listening { 
+.microphone--listening {
     animation: listening ease-in 0.8s infinite;
 }
- 
+
 @keyframes listening {
-    from {  
+    from {
         color: red;
-        transform: scale(1); 
-        border: 2px dashed transparent;
+        transform: scale(1);
+        border-left: 2px dashed transparent;
+        border-right: 2px dashed transparent;
     }
-    
+
     to {
-        border: 2px dashed #333;
+        border-left: 2px dashed rgba(252, 55, 2, 1);
+        border-right: 2px dashed rgba(252, 55, 2, 1);
         transform: scale(1.2);
         color: red;
     }
@@ -83,7 +92,6 @@
 .app_main-position {
     position: relative;
     text-transform: capitalize;
-    color: #fff;
     font-size: 28px;
 }
 
@@ -106,14 +114,15 @@
 
 .app_main-temperature::after {
     position: absolute;
-    line-height: 15px;
-    color: #fff;
+    line-height: 15px; 
     content: '0';
     font-size: 15px;
 }
 
 #map {
     height: 320px;
+    background-image: url('https://www.amcharts.com/docs/v4/wp-content/uploads/sites/2/2018/04/2018-04-06_13-04-24.png');
+    background-size: contain;
 }
 
 .app_footer {
@@ -130,5 +139,10 @@
 
 .app_footer-detail-item {
     width: 50%;
+    margin: auto;
+    text-align: center;
+}
 
+#fb-root {
+    display: none;
 }
