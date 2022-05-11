@@ -8,6 +8,7 @@ body {
 }
 
 .app {
+    position: relative;
     border-radius: 5px;
     margin: 30px auto;
     padding: 10px;
@@ -43,7 +44,6 @@ body {
     background-color: transparent;
     outline: unset;
     border: none;
-    color: #fff;
 }
 
 .microphone {
@@ -147,6 +147,55 @@ body {
     display: none;
 }
 
-.clock-container {}
+.clock-container {
+    display: none !important;
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    top: 100px;
+    margin-top: auto;
+    width: 20rem;
+    height: 100px;
+}
 
-.clock {}
+.clock {
+    position: absolute;
+    top: 0;
+    text-align: center;
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    background-color: #666;
+    background-image: linear-gradient(#333, #dedede);
+    animation: rotate360 ease-in 0.6s infinite;
+}
+
+.time {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 10px;
+    width: 130px;
+    height: 130px;
+    border-radius: 50%;
+    background-color: #dedede;
+    text-shadow: 1px  1px  #666 ;
+    animation: unset;
+    font-size: 36px;
+    font-weight: 800;
+    font-family: Arial, Helvetica, sans-serif;
+    z-index: 1;
+
+}
+
+@keyframes rotate360 {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+
+}

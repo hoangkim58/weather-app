@@ -9,7 +9,6 @@ const position = $('.app_main-position')
 const weatherIcon = $('.app_main-conditions-icon')
 const condition = $('.app_main-conditions')
 const temperature = $('.app_main-temperature')
-const microphone = $('.microphone')
 const sunrise = $('.sunrise')
 const sunset = $('.sunset')
 const humidity = $('.humidity')
@@ -99,23 +98,36 @@ const handleData = (position) => {
 inputCity.change((e) => {
 
     handleData(e.target.value)
-
-    e.target.value = ''
     inputCity.focus()
+
+})
+
+inputCity.click((e) => {
+    e.target.value = ''
 })
 
 ///////////////////////////
 // virtual assistance 
+const microphone = document.querySelector('.microphone')
+const searchInput = $('.app_header-search-input')
+const clockContainer = $('.clock-container')
+const time = $('.time')
 
-const microphone2 = document.querySelector('.microphone')
-const SpeechRecognition = window.SpeechRecognition || webkitSpeechRecognition;
-const recognition = new SpeechRecognition();
 const requestBackground = ['sáng', 'tối', 'mặc định']
 const backgroundColor = ['#fff', '#333', '#3498DB']
+
 const hour = new Date().getHours()
 const minute = new Date().getMinutes()
 
-let requestStr = ''
+const SpeechRecognition = window.SpeechRecognition || webkitSpeechRecognition;
+const recognition = new SpeechRecognition();
+const synth = window.speechSynthesis;
+// set config 
+recognition.lang = 'vi-VI';
+recognition.continuous = false;
+
+
+let commandStr = ''
 
 // get position from voice message
 const getPosition = (str) => {
@@ -132,15 +144,20 @@ const getColor = (str) => {
     return backgroundColor[index]
 }
 
-// set config 
-recognition.lang = 'vi-VI';
-recognition.continuous = false;
+const errorVoiceMessage = () => {
+    const voiceResponse = 'Try again'
+    const currentTimeStr = new SpeechSynthesisUtterance(voiceResponse);
+
+    synth.speak(currentTimeStr)
+
+}
 
 // start Recognition
-microphone2.addEventListener('click', (e) => {
+microphone.addEventListener('click', (e) => {
     e.preventDefault
+    searchInput.val('')
     recognition.start();
-    microphone.addClass('microphone--listening')
+    microphone.classList.add('microphone--listening')
     console.log('Listening...');
 
 })
@@ -148,11 +165,14 @@ microphone2.addEventListener('click', (e) => {
 // stop Recognition
 recognition.onspeechend = function () {
     recognition.stop();
-    microphone.removeClass('microphone--listening')
+    microphone.classList.remove('microphone--listening')
     console.log('end...');
 }
 
 recognition.onerror = (err) => {
+    
+    microphone.classList.remove('microphone--listening')
+    errorVoiceMessage()
     console.error(err);
 }
 
@@ -160,17 +180,23 @@ recognition.onerror = (err) => {
 
 recognition.onresult = (e) => {
 
-    requestStr = e.results[0][0].transcript
+    commandStr = e.results[0][0].transcript
+    const requestStr = commandStr.toLowerCase()
 
     var isRequestWeatherForecast = requestStr.includes('thời tiết')
     var isRequestBackgroundColor = requestStr.includes('màu nền')
-    var isRequestCurentTime = requestStr.includes('mấy giờ')
-    console.log('voice: ',requestStr);
+    var isRequestPresentTime = requestStr.includes('mấy giờ')
 
+    // enter content of voice message to show
+    searchInput.val(commandStr)
+
+    console.log('voice: ', requestStr);
     //
     if (isRequestWeatherForecast) {
         const position = getPosition(requestStr)
         handleData(position)
+
+        return
     }
 
     //
@@ -183,14 +209,32 @@ recognition.onresult = (e) => {
             app.attr('style', `background-color: ${color}; color: #fff `)
         }
         console.log(color);
+
+        return
     }
 
-    //
-    if (isRequestCurentTime) {
-        console.log(hour , minute)
-        
+    //show current time 
+    if (isRequestPresentTime) {
+        const currentTime = hour + ' : ' + minute
+        const voiceResponse = hour + 'hour' + minute + 'minute' 
+        const currentTimeStr = new SpeechSynthesisUtterance(voiceResponse);
+
+        clockContainer.attr('style', 'display: flex !important;')
+        time.html(currentTime)
+
+        synth.speak(currentTimeStr)
+
+        setTimeout(() => {
+            clockContainer.removeAttr('style')
+        }, 2000);
+
+        return
     }
 
+    // Error message
+    errorVoiceMessage()
+
+    return
 }
 
 // login facebook
