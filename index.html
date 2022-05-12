@@ -24,14 +24,23 @@
 <body>
     <div class="app">
         <div class="app_header">
-
+            <div class="app_header-login">
+                <span class="header-item">
+                    <img class="icon-flag header-text" src="https://img.icons8.com/color/48/000000/vietnam.png" />
+                    <img class="icon-flag header-text" src="https://img.icons8.com/color/48/000000/great-britain.png" />
+                </span>
+                <span class="header-item">
+                    <i class="fa-solid fa-circle-info header-item" title="Hỗ trợ"></i>
+                    <div class="header-text btn-login">Đăng nhập</div>
+                </span>
+            </div>
             <div class="app_header-search">
                 <i class="fa-solid fa-magnifying-glass"></i>
-                <input class="app_header-search-input" placeholder="Enter your city name..." value="" />
+                <input class="app_header-search-input" placeholder="Nhập thành phố của bạn..." value="" />
                 <i class="fa-solid fa-microphone microphone"></i>
 
                 <!-- <i class="fa-solid fa-circle-exclamation"></i> -->
-                <!-- <i class="fa-solid fa-circle-info"></i> -->
+
             </div>
         </div>
 
@@ -56,10 +65,11 @@
                 <div class="app_footer-detail-item ">Gió: <span class="wind-speed">--</span> km/h</div>
             </div>
         </div>
-
-        <div id="fb-root">
-            <div class="fb-login-button" data-width="" data-size="large" data-button-type="continue_with"
-                data-layout="default" data-auto-logout-link="false" data-use-continue-as="false"></div>
+        <div class="login-container">
+            <div id="fb-root">
+                <div class="fb-login-button" data-width="" data-size="large" data-button-type="continue_with"
+                    data-layout="default" data-auto-logout-link="false" data-use-continue-as="false"></div>
+            </div>
         </div>
 
         <div class="clock-container">

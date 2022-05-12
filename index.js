@@ -97,8 +97,32 @@ const handleData = (position) => {
 
 inputCity.change((e) => {
 
-    handleData(e.target.value)
+    const value = e.target.value
+    const lowerCaseStr = value.toLowerCase()
+    const currentTime = hour + ' : ' + minute
+    const voiceResponse = hour + 'hour' + minute + 'minute'
+    const currentTimeStr = new SpeechSynthesisUtterance(voiceResponse);
+
+    if (lowerCaseStr == 'mấy giờ' || lowerCaseStr == 'may gio') {
+
+        clockContainer.attr('style', 'display: flex !important;')
+        time.html(currentTime)
+
+        synth.speak(currentTimeStr)
+
+        setTimeout(() => {
+            clockContainer.removeAttr('style')
+        }, 3000);
+
+        return
+    } else {
+        handleData(value)
+
+    }
+
     inputCity.focus()
+
+    return
 
 })
 
@@ -170,7 +194,7 @@ recognition.onspeechend = function () {
 }
 
 recognition.onerror = (err) => {
-    
+
     microphone.classList.remove('microphone--listening')
     errorVoiceMessage()
     console.error(err);
@@ -216,7 +240,7 @@ recognition.onresult = (e) => {
     //show current time 
     if (isRequestPresentTime) {
         const currentTime = hour + ' : ' + minute
-        const voiceResponse = hour + 'hour' + minute + 'minute' 
+        const voiceResponse = hour + 'hour' + minute + 'minute'
         const currentTimeStr = new SpeechSynthesisUtterance(voiceResponse);
 
         clockContainer.attr('style', 'display: flex !important;')
@@ -226,7 +250,7 @@ recognition.onresult = (e) => {
 
         setTimeout(() => {
             clockContainer.removeAttr('style')
-        }, 2000);
+        }, 3000);
 
         return
     }
@@ -237,6 +261,21 @@ recognition.onresult = (e) => {
     return
 }
 
-// login facebook
+// login
+const loginBtn = $('.btn-login')
+const loginFb = $('#fb-root')
+const loginContainer = $('.login-container')
 
 
+loginBtn.click(() => {
+    loginContainer.attr('style', 'display: flex')
+})
+
+loginContainer.click(() => {
+    loginContainer.attr('style', 'display: none')
+})
+
+loginFb.click(function( event ) {
+    event.stopPropagation();
+    // Do something
+  });
