@@ -11,5 +11,9 @@
     "url": "https://github.com/hoangkim58/weather-app.git"
   },
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "serve": "vue-cli-service serve  --https true",
+  "dependencies": {
+    "devcert": "^1.2.1"
+  }
 }

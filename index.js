@@ -266,6 +266,9 @@ const loginBtn = $('.btn-login')
 const loginFb = $('#fb-root')
 const loginContainer = $('.login-container')
 
+//
+// let ssl = await devcert.certificateFor('my-app.test');
+// https.createServer(ssl, app).listen(5500);
 
 loginBtn.click(() => {
     loginContainer.attr('style', 'display: flex')
@@ -275,7 +278,49 @@ loginContainer.click(() => {
     loginContainer.attr('style', 'display: none')
 })
 
-loginFb.click(function( event ) {
+loginFb.click(function (event) {
     event.stopPropagation();
     // Do something
-  });
+});
+
+window.fbAsyncInit = function () {
+    FB.init({
+        appId: 1342571032914183,
+        status: true,
+        cookie: true,
+        xfbml: true,
+        version: 'v13.0'         // Use this Graph API version for this call.
+    });
+};
+
+
+function statusChangeCallback(response) {  // Called with the results from FB.getLoginStatus().
+    console.log('statusChangeCallback');
+    console.log(response);                   // The current login status of the person.
+    if (response.status === 'connected') {   // Logged into your webpage and Facebook.
+        testAPI();
+    } else {                                 // Not logged into your webpage or we are unable to tell.
+
+    }
+}
+
+function testAPI() {                      // Testing Graph API after login.  See statusChangeCallback() for when this call is made.
+    console.log('Welcome!  Fetching your information.... ');
+    FB.api('/me', function (response) {
+        console.log('Successful login for: ' + response.name);
+        loginBtn.html(response.name)
+    });
+
+}
+
+function handleSessionResponse(response) {
+    //if we dont have a session (which means the user has been logged out, redirect the user)
+    if (!response.session) {
+        window.location = "/mysite/Login.aspx";
+        return;
+    }
+
+    //if we do have a non-null response.session, call FB.logout(),
+    //the JS method will log the user out of Facebook and remove any authorization cookies
+    FB.logout(handleSessionResponse);
+}
