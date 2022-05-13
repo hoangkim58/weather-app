@@ -15,6 +15,7 @@
     <script async defer crossorigin="anonymous"
         src="https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v13.0&appId=1342571032914183&autoLogAppEvents=1"
         nonce="RcSjEPXE"></script>
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://kit.fontawesome.com/b754d52801.js" crossorigin="anonymous"></script>
     <script defer src="./index.js"></script>
@@ -26,20 +27,18 @@
         <div class="app_header">
             <div class="app_header-login">
                 <span class="header-item">
-                    <img 
-                        class="icon-flag header-text" 
-                        src="https://img.icons8.com/color/48/000000/vietnam.png" 
-                        title="Việt Nam"
-                    />
-                    <img 
-                        class="icon-flag header-text" 
-                        src="https://img.icons8.com/color/48/000000/great-britain.png" 
-                        title="USA"
-                    />
+                    <img class="icon-flag header-text" src="https://img.icons8.com/color/48/000000/vietnam.png"
+                        title="Việt Nam" />
+                    <img class="icon-flag header-text" src="https://img.icons8.com/color/48/000000/great-britain.png"
+                        title="USA" />
                 </span>
                 <span class="header-item">
                     <i class="fa-solid fa-circle-info header-item" title="Hướng dẫn sử dụng"></i>
-                    <div class="header-text btn-login">Đăng nhập</div>
+                    <div class="header-account">
+
+                        <div class="header-text btn-login">Đăng nhập</div>
+                        <img id="avatar" src="https://tsi.gyanit.in/img/user-avatar.png" alt="" />
+                    </div>
                 </span>
             </div>
             <div class="app_header-search">
@@ -75,10 +74,14 @@
         </div>
         <div class="login-container">
             <div id="fb-root">
-                <div class="fb-login-button" data-width="" data-size="large" data-button-type="continue_with"
-                    data-layout="default" data-auto-logout-link="false" data-use-continue-as="false"></div>
-            </div>
+                <fb:login-button scope="public_profile,email" onlogin="checkLoginState();" class="fb-login fb-item">
+                </fb:login-button>
 
+                <a class='fb-logout fb-item' href="/" onclick="FB.logout();">
+                    Logout
+                    <i class="fa-solid fa-arrow-right-from-bracket"></i>
+                </a>
+            </div>
         </div>
         <div class="pseudo-loading">
 

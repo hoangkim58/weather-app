@@ -297,10 +297,9 @@ recognition.onresult = (e) => {
 const loginBtn = $('.btn-login')
 const loginFb = $('#fb-root')
 const loginContainer = $('.login-container')
-
-//
-// let ssl = await devcert.certificateFor('my-app.test');
-// https.createServer(ssl, app).listen(5500);
+const avatar = $('#avatar')
+const logOutBtn = $('.fb-logout')
+const logInBtn = $('.fb-login')
 
 loginBtn.click(() => {
     loginContainer.attr('style', 'display: flex')
@@ -315,6 +314,7 @@ loginFb.click(function (event) {
     // Do something
 });
 
+
 window.fbAsyncInit = function () {
     FB.init({
         appId: 1342571032914183,
@@ -323,53 +323,62 @@ window.fbAsyncInit = function () {
         xfbml: true,
         version: 'v13.0'         // Use this Graph API version for this call.
     });
-};
 
-function testAPI() {                      // Testing Graph API after login.  See statusChangeCallback() for when this call is made.
-    console.log('Welcome!  Fetching your information.... ');
-    FB.api('/', function (response) {
-        console.log('Successful login for: ' + response.name);
-        loginBtn.html(response.name)
+    FB.getLoginStatus(function (response) {   // Called after the JS SDK has been initialized.
+        statusChangeCallback(response);        // Returns the login status.
     });
-
-}
+};
 
 function statusChangeCallback(response) {  // Called with the results from FB.getLoginStatus().
     console.log('statusChangeCallback');
     console.log(response);                   // The current login status of the person.
     if (response.status === 'connected') {   // Logged into your webpage and Facebook.
         testAPI();
+
+        logOutBtn.show()
+        logInBtn.hide()
     } else {                                 // Not logged into your webpage or we are unable to tell.
+        document.getElementById('status').innerHTML = 'Please log ' +
+            'into this webpage.';
 
-    }
-}
-
-function handleSessionResponse(response) {
-    //if we dont have a session (which means the user has been logged out, redirect the user)
-    if (!response.session) {
-        window.location = "/";
-        return;
+        logOutBtn.hide()
+        logInBtn.show()
     }
 
-    //if we do have a non-null response.session, call FB.logout(),
-    //the JS method will log the user out of Facebook and remove any authorization cookies
-    FB.logout(handleSessionResponse);
 }
 
 
-//shortcut open microphone  -- Ctrl + m
- 
+function checkLoginState() {               // Called when a person is finished with the Login Button.
+    FB.getLoginStatus(function (response) {   // See the onlogin handler
+        statusChangeCallback(response);
+    });
+}
+
+
+function testAPI() {                      // Testing Graph API after login.  See statusChangeCallback() for when this call is made.
+    console.log('Welcome!  Fetching your information.... ');
+    FB.api('/me', { fields: 'id,name,email,picture' }, function (response) {
+        const personalAvatar = response.picture.data.url
+        console.log('Successful login for: ' + response.name); 
+        loginBtn.html(response.name);
+        avatar.attr('src', personalAvatar)
+        // document.getElementById('status').innerHTML =
+        //     'Thanks for logging in, ' + response.name + '!'; 
+    });
+}
+
+//shortcut open microphone  -- Ctrl + m 
 let keyDown = ''
 let keyUp = ''
 $(document).one().on('keydown', (e) => {
     keyDown = e.keyCode
 
     $(document).one().on('keyup', (e) => {
-        keyUp = e.keyCode 
-        
-        if (keyDown + keyUp == 94) {  
+        keyUp = e.keyCode
+
+        if (keyDown + keyUp == 94) {
             startRecognition()
-            return   
+            return
         }
     })
 })
