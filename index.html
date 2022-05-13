@@ -26,18 +26,26 @@
         <div class="app_header">
             <div class="app_header-login">
                 <span class="header-item">
-                    <img class="icon-flag header-text" src="https://img.icons8.com/color/48/000000/vietnam.png" />
-                    <img class="icon-flag header-text" src="https://img.icons8.com/color/48/000000/great-britain.png" />
+                    <img 
+                        class="icon-flag header-text" 
+                        src="https://img.icons8.com/color/48/000000/vietnam.png" 
+                        title="Việt Nam"
+                    />
+                    <img 
+                        class="icon-flag header-text" 
+                        src="https://img.icons8.com/color/48/000000/great-britain.png" 
+                        title="USA"
+                    />
                 </span>
                 <span class="header-item">
-                    <i class="fa-solid fa-circle-info header-item" title="Hỗ trợ"></i>
+                    <i class="fa-solid fa-circle-info header-item" title="Hướng dẫn sử dụng"></i>
                     <div class="header-text btn-login">Đăng nhập</div>
                 </span>
             </div>
             <div class="app_header-search">
                 <i class="fa-solid fa-magnifying-glass"></i>
                 <input class="app_header-search-input" placeholder="Nhập thành phố của bạn..." value="" />
-                <i class="fa-solid fa-microphone microphone"></i>
+                <i class="fa-solid fa-microphone microphone" title="Shortcut: Ctrl + m"></i>
 
                 <!-- <i class="fa-solid fa-circle-exclamation"></i> -->
 
@@ -71,17 +79,15 @@
                     data-layout="default" data-auto-logout-link="false" data-use-continue-as="false"></div>
             </div>
 
-
-
-
-            <div id="status">
-            </div>
         </div>
+        <div class="pseudo-loading">
 
+            <div class="pseudo-loading-image"></div>
+        </div>
         <div class="clock-container">
             <div class="clock">
             </div>
-            <div class="time"> 12:12</div>
+            <div class="time"></div>
         </div>
     </div>
 

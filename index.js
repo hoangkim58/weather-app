@@ -15,6 +15,8 @@ const humidity = $('.humidity')
 const windSpeed = $('.wind-speed')
 const mapContainer = $('.map.container')
 const mapContent = $('#map')
+const pseudoLoading = $('.pseudo-loading')
+const leafletMap = $('#map ')
 
 //map input 
 let latMap = ''
@@ -44,15 +46,43 @@ const renderContent = (data) => {
 
 //handle data and show location on map
 const handleData = (position) => {
+
+    //clear old map data
+    const isFirstCheckMap = $('#map .leaflet-pane').length == 0
+    if (!isFirstCheckMap) leafletMap.empty()
+
+    // hanlde pseudo loading 
+    pseudoLoading.attr('style', 'display:flex')
+
+
     fetch(`https://api.openweathermap.org/data/2.5/weather?q=${position}&appid=${API}&lang=vi&units=metric`)
         .then(async res => {
             const data = await res.json()
             console.log(data);
-            //reset input
+
+            // hanlde pseudo loading 
+            pseudoLoading.attr('style', 'display:none')
 
 
             if (data.cod == 404) {
 
+                $('.app_header-search .fa-solid').addClass('fa-circle-exclamation')
+                $('.app_header-search .fa-solid').removeClass('fa-magnifying-glass')
+                $('.app_header-search i:first-child').attr('style', 'color: red')
+
+                inputCity.val('invalid data...')
+                // voice notify 
+                errorVoiceMessage()
+
+                setTimeout(() => {
+
+                    $('.app_header-search .fa-solid').addClass('fa-magnifying-glass')
+                    $('.app_header-search .fa-solid').removeClass('fa-circle-exclamation')
+                    $('.app_header-search .fa-solid').attr('style', ' ')
+
+                    inputCity.val('')
+
+                }, 1000);
                 renderContent()
                 return
             }
@@ -176,14 +206,17 @@ const errorVoiceMessage = () => {
 
 }
 
-// start Recognition
-microphone.addEventListener('click', (e) => {
-    e.preventDefault
+//
+function startRecognition() {
     searchInput.val('')
     recognition.start();
     microphone.classList.add('microphone--listening')
     console.log('Listening...');
 
+}
+// start Recognition
+microphone.addEventListener('click', () => {
+    startRecognition()
 })
 
 // stop Recognition
@@ -257,7 +290,6 @@ recognition.onresult = (e) => {
 
     // Error message
     errorVoiceMessage()
-
     return
 }
 
@@ -293,6 +325,14 @@ window.fbAsyncInit = function () {
     });
 };
 
+function testAPI() {                      // Testing Graph API after login.  See statusChangeCallback() for when this call is made.
+    console.log('Welcome!  Fetching your information.... ');
+    FB.api('/', function (response) {
+        console.log('Successful login for: ' + response.name);
+        loginBtn.html(response.name)
+    });
+
+}
 
 function statusChangeCallback(response) {  // Called with the results from FB.getLoginStatus().
     console.log('statusChangeCallback');
@@ -304,19 +344,10 @@ function statusChangeCallback(response) {  // Called with the results from FB.ge
     }
 }
 
-function testAPI() {                      // Testing Graph API after login.  See statusChangeCallback() for when this call is made.
-    console.log('Welcome!  Fetching your information.... ');
-    FB.api('/me', function (response) {
-        console.log('Successful login for: ' + response.name);
-        loginBtn.html(response.name)
-    });
-
-}
-
 function handleSessionResponse(response) {
     //if we dont have a session (which means the user has been logged out, redirect the user)
     if (!response.session) {
-        window.location = "/mysite/Login.aspx";
+        window.location = "/";
         return;
     }
 
@@ -324,3 +355,21 @@ function handleSessionResponse(response) {
     //the JS method will log the user out of Facebook and remove any authorization cookies
     FB.logout(handleSessionResponse);
 }
+
+
+//shortcut open microphone  -- Ctrl + m
+ 
+let keyDown = ''
+let keyUp = ''
+$(document).one().on('keydown', (e) => {
+    keyDown = e.keyCode
+
+    $(document).one().on('keyup', (e) => {
+        keyUp = e.keyCode 
+        
+        if (keyDown + keyUp == 94) {  
+            startRecognition()
+            return   
+        }
+    })
+})
