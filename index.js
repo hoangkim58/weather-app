@@ -32,14 +32,25 @@ const convertTime = (time) => {
 
 //print weather conditions
 const renderContent = (data) => {
+    if (data == undefined) {
+        position.html(DEFAULT_VALUE)
+        condition.html(DEFAULT_VALUE)
+        temperature.html(DEFAULT_VALUE)
+        sunrise.html(DEFAULT_VALUE)
+        sunset.html(DEFAULT_VALUE)
+        humidity.html(DEFAULT_VALUE)
+        windSpeed.html(DEFAULT_VALUE)
 
-    position.html(data.name || DEFAULT_VALUE)
-    condition.html(data.weather[0].description || DEFAULT_VALUE)
-    temperature.html(data.main.temp || DEFAULT_VALUE)
-    sunrise.html(convertTime(data.sys.sunrise) || DEFAULT_VALUE)
-    sunset.html(convertTime(data.sys.sunset) || DEFAULT_VALUE)
-    humidity.html(data.main.humidity || DEFAULT_VALUE)
-    windSpeed.html(data.wind.speed || DEFAULT_VALUE)
+        return
+    }
+
+    position.html(data.name)
+    condition.html(data.weather[0].description)
+    temperature.html(data.main.temp)
+    sunrise.html(convertTime(data.sys.sunrise))
+    sunset.html(convertTime(data.sys.sunset))
+    humidity.html(data.main.humidity)
+    windSpeed.html(data.wind.speed)
     weatherIcon.attr('src', ` http://openweathermap.org/img/wn/${data.weather[0].icon}.png`)
 
 }
@@ -65,20 +76,23 @@ const handleData = (position) => {
 
 
             if (data.cod == 404) {
+                var message = data.message.toUpperCase()
 
-                searchInput.attr('style', 'border:1px solid red; color: red;')
-                inputCity.val('invalid data...')
-                // voice notify 
+                searchInput.attr('style', 'border: 2px solid red; color: red;')
+                inputCity.val(message + '...')
+
+                // voice notify -> error input / invalid input 
                 errorVoiceMessage()
 
+                // clean up for a next request
+                renderContent(undefined)
                 setTimeout(() => {
 
                     searchInput.removeAttr('style')
                     inputCity.val('')
 
                 }, 1500);
-
-                renderContent()
+ 
                 return
             }
 
