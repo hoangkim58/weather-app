@@ -66,23 +66,18 @@ const handleData = (position) => {
 
             if (data.cod == 404) {
 
-                $('.app_header-search .fa-solid').addClass('fa-circle-exclamation')
-                $('.app_header-search .fa-solid').removeClass('fa-magnifying-glass')
-                $('.app_header-search i:first-child').attr('style', 'color: red')
-
+                searchInput.attr('style', 'border:1px solid red; color: red;')
                 inputCity.val('invalid data...')
                 // voice notify 
                 errorVoiceMessage()
 
                 setTimeout(() => {
 
-                    $('.app_header-search .fa-solid').addClass('fa-magnifying-glass')
-                    $('.app_header-search .fa-solid').removeClass('fa-circle-exclamation')
-                    $('.app_header-search .fa-solid').attr('style', ' ')
-
+                    searchInput.removeAttr('style')
                     inputCity.val('')
 
-                }, 1000);
+                }, 1500);
+
                 renderContent()
                 return
             }
@@ -294,12 +289,14 @@ recognition.onresult = (e) => {
 }
 
 // login
-const loginBtn = $('.btn-login')
+const loginBtn = $('.header-account')
+const loginText = $('.login-btn')
 const loginFb = $('#fb-root')
 const loginContainer = $('.login-container')
 const avatar = $('#avatar')
 const logOutBtn = $('.fb-logout')
-const logInBtn = $('.fb-login')
+const loginChoose = $('.login-choose')
+const loginTitle = $('#login-title')
 
 loginBtn.click(() => {
     loginContainer.attr('style', 'display: flex')
@@ -335,14 +332,16 @@ function statusChangeCallback(response) {  // Called with the results from FB.ge
     if (response.status === 'connected') {   // Logged into your webpage and Facebook.
         testAPI();
 
-        logOutBtn.show()
-        logInBtn.hide()
+        logOutBtn.attr('style', 'display: flex')
+        loginChoose.hide()
+        loginTitle.html('Đăng xuất')
     } else {                                 // Not logged into your webpage or we are unable to tell.
         document.getElementById('status').innerHTML = 'Please log ' +
             'into this webpage.';
+        logOutBtn.attr('style', 'display: none')
+        loginChoose.show()
+        loginTitle.html('Đăng nhập')
 
-        logOutBtn.hide()
-        logInBtn.show()
     }
 
 }
@@ -359,8 +358,8 @@ function testAPI() {                      // Testing Graph API after login.  See
     console.log('Welcome!  Fetching your information.... ');
     FB.api('/me', { fields: 'id,name,email,picture' }, function (response) {
         const personalAvatar = response.picture.data.url
-        console.log('Successful login for: ' + response.name); 
-        loginBtn.html(response.name);
+        console.log('Successful login for: ' + response.name);
+        loginText.html(response.name);
         avatar.attr('src', personalAvatar)
         // document.getElementById('status').innerHTML =
         //     'Thanks for logging in, ' + response.name + '!'; 
@@ -382,3 +381,8 @@ $(document).one().on('keydown', (e) => {
         }
     })
 })
+
+//Coming soon
+const notify = (str) => {
+    alert(`${str}`)
+}

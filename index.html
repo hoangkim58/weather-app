@@ -28,25 +28,23 @@
             <div class="app_header-login">
                 <span class="header-item">
                     <img class="icon-flag header-text" src="https://img.icons8.com/color/48/000000/vietnam.png"
-                        title="Việt Nam" />
+                        title="Việt Nam" onclick="notify('Bạn đang ở ngôn ngữ tiếng Việt')" />
                     <img class="icon-flag header-text" src="https://img.icons8.com/color/48/000000/great-britain.png"
-                        title="USA" />
+                        title="USA" onclick="notify('coming soon...')" />
                 </span>
                 <span class="header-item">
-                    <i class="fa-solid fa-circle-info header-item" title="Hướng dẫn sử dụng"></i>
+                    <i class="fa-solid fa-circle-info header-item" title="Hướng dẫn sử dụng"
+                        onclick="notify('coming soon...')"></i>
                     <div class="header-account">
 
-                        <div class="header-text btn-login">Đăng nhập</div>
+                        <div class="header-text login-btn">Đăng nhập</div>
                         <img id="avatar" src="https://tsi.gyanit.in/img/user-avatar.png" alt="" />
                     </div>
                 </span>
             </div>
             <div class="app_header-search">
-                <i class="fa-solid fa-magnifying-glass"></i>
                 <input class="app_header-search-input" placeholder="Nhập thành phố của bạn..." value="" />
-                <i class="fa-solid fa-microphone microphone" title="Shortcut: Ctrl + m"></i>
-
-                <!-- <i class="fa-solid fa-circle-exclamation"></i> -->
+                <i class="fa-solid fa-microphone microphone" title="Shortcut: Ctrl + m"></i> 
 
             </div>
         </div>
@@ -74,11 +72,21 @@
         </div>
         <div class="login-container">
             <div id="fb-root">
-                <fb:login-button scope="public_profile,email" onlogin="checkLoginState();" class="fb-login fb-item">
-                </fb:login-button>
+                <h1 id="login-title">Đăng nhập</h1>
+                <div class="login-choose">
+                    <input type="text" class="login-input-item m-t-b-10"
+                        placeholder="Email/Số điện thoại/Tên đăng nhập">
+                    <input type="text" class="login-input-item m-t-b-10" placeholder="Mật khẩu">
+                    <button class="login-submit-btn" onclick="notify('coming soon...')">Đăng nhập</button>
+                    <hr>
+                    <div class="fb-login-button fb-login m-t-b-10" onlogin="checkLoginState();" data-width=""
+                        data-size="large" data-button-type="continue_with" data-layout="default"
+                        data-auto-logout-link="false" data-use-continue-as="false">
+                    </div>
+                </div>
 
-                <a class='fb-logout fb-item' href="/" onclick="FB.logout();">
-                    Logout
+                <a class='fb-logout fb-item login-submit-btn' href="/" onclick="FB.logout();">
+                    Logout 
                     <i class="fa-solid fa-arrow-right-from-bracket"></i>
                 </a>
             </div>
