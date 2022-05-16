@@ -1,5 +1,6 @@
 body {
-    all: unset
+    all: unset;
+    background-color: #dedede;
 }
 
 .m-auto {
