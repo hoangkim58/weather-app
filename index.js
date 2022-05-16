@@ -138,7 +138,11 @@ inputCity.change((e) => {
 
     const value = e.target.value
     const lowerCaseStr = value.toLowerCase()
-    const currentTime = hour + ' : ' + minute
+    const hourStr = '0' + hour
+    const hourOutput = hourStr.slice(-2) 
+    const minuteStr = '0' + minute
+    const minuteOutput = minuteStr.slice(-2) 
+    const currentTime = hourOutput + ' : ' + minuteOutput
     const voiceResponse = hour + 'hour' + minute + 'minute'
     const currentTimeStr = new SpeechSynthesisUtterance(voiceResponse);
 
@@ -281,7 +285,12 @@ recognition.onresult = (e) => {
 
     //show current time 
     if (isRequestPresentTime) {
-        const currentTime = hour + ' : ' + minute
+        const hourStr = '0' + hour
+        const hourOutput = hourStr.slice(-2) 
+        const minuteStr = '0' + minute
+        const minuteOutput = minuteStr.slice(-2)  
+
+        const currentTime = hourOutput + ' : ' + minuteOutput
         const voiceResponse = hour + 'hour' + minute + 'minute'
         const currentTimeStr = new SpeechSynthesisUtterance(voiceResponse);
 

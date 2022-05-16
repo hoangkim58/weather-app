@@ -298,6 +298,7 @@ i .fa-arrow-right-from-bracket {
     margin-top: auto;
     width: 20rem;
     height: 100px;
+    z-index: 1112;
 }
 
 .clock {
