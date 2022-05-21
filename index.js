@@ -1,7 +1,7 @@
 
 const API = 'daa0212fbd13a05d0ba5bc59cfd50f8a'
 
-// components that need to be rendered
+// rendered content
 const app = $('.app')
 const inputCity = $('.app_header-search-input')
 const DEFAULT_VALUE = '--'
@@ -33,6 +33,7 @@ const convertTime = (time) => {
 //print weather conditions
 const renderContent = (data) => {
     if (data == undefined) {
+        
         position.html(DEFAULT_VALUE)
         condition.html(DEFAULT_VALUE)
         temperature.html(DEFAULT_VALUE)

@@ -24,7 +24,7 @@
 
 <body>
     <div class="app">
-        <div class="app_header">
+        <header class="app_header">
             <div class="app_header-login">
                 <span class="header-item">
                     <img class="icon-flag header-text" src="https://img.icons8.com/color/48/000000/vietnam.png"
@@ -44,62 +44,65 @@
             </div>
             <div class="app_header-search">
                 <input class="app_header-search-input" placeholder="Nhập thành phố của bạn..." value="" />
-                <i class="fa-solid fa-microphone microphone" title="Shortcut: Ctrl + m"></i> 
+                <i class="fa-solid fa-microphone microphone" title="Shortcut: Ctrl + m"></i>
 
             </div>
-        </div>
+        </header>
 
-        <div class="app_main">
-            <div class="app_main-position m-auto">--</div>
-            <div class="app_main-conditions m-auto">--</div>
-            <div class="m-auto">
-                <img class="app_main-conditions-icon " src=" http://openweathermap.org/img/wn/02d.png"
-                    alt="weather icon">
-            </div>
-            <div class="app_main-temperature m-auto">--</div>
-        </div>
-        <div class="map-container">
+        <main class="main">
 
-            <div id="map"></div>
-        </div>
-        <div class="app_footer">
-            <div class="app_footer-detail">
-                <div class="app_footer-detail-item">MT mọc: <span class="sunrise">--</span></div>
-                <div class="app_footer-detail-item">MT lặn: <span class="sunset">--</span></div>
-                <div class="app_footer-detail-item ">Độ ẩm: <span class="humidity">--</span>%</div>
-                <div class="app_footer-detail-item ">Gió: <span class="wind-speed">--</span> km/h</div>
-            </div>
-        </div>
-        <div class="login-container">
-            <div id="fb-root">
-                <h1 id="login-title">Đăng nhập</h1>
-                <div class="login-choose">
-                    <input type="text" class="login-input-item m-t-b-10"
-                        placeholder="Email/Số điện thoại/Tên đăng nhập">
-                    <input type="text" class="login-input-item m-t-b-10" placeholder="Mật khẩu">
-                    <button class="login-submit-btn" onclick="notify('coming soon...')">Đăng nhập</button>
-                    <hr>
-                    <div class="fb-login-button fb-login m-t-b-10" onlogin="checkLoginState();" data-width=""
-                        data-size="large" data-button-type="continue_with" data-layout="default"
-                        data-auto-logout-link="false" data-use-continue-as="false">
-                    </div>
+            <div class="app_main">
+                <div class="app_main-position m-auto">--</div>
+                <div class="app_main-conditions m-auto">--</div>
+                <div class="m-auto">
+                    <img class="app_main-conditions-icon " src=" http://openweathermap.org/img/wn/02d.png"
+                        alt="weather icon">
                 </div>
-
-                <a class='fb-logout fb-item login-submit-btn' href="/" onclick="FB.logout();">
-                    Logout 
-                    <i class="fa-solid fa-arrow-right-from-bracket"></i>
-                </a>
+                <div class="app_main-temperature m-auto">--</div>
             </div>
-        </div>
-        <div class="pseudo-loading">
+            <div class="map-container">
 
-            <div class="pseudo-loading-image"></div>
-        </div>
-        <div class="clock-container">
-            <div class="clock">
+                <div id="map"></div>
             </div>
-            <div class="time"></div>
-        </div>
+            <div class="app_footer">
+                <div class="app_footer-detail">
+                    <div class="app_footer-detail-item">MT mọc: <span class="sunrise">--</span></div>
+                    <div class="app_footer-detail-item">MT lặn: <span class="sunset">--</span></div>
+                    <div class="app_footer-detail-item ">Độ ẩm: <span class="humidity">--</span>%</div>
+                    <div class="app_footer-detail-item ">Gió: <span class="wind-speed">--</span> km/h</div>
+                </div>
+            </div>
+            <div class="login-container">
+                <div id="fb-root">
+                    <h1 id="login-title">Đăng nhập</h1>
+                    <div class="login-choose">
+                        <input type="text" class="login-input-item m-t-b-10"
+                            placeholder="Email/Số điện thoại/Tên đăng nhập">
+                        <input type="text" class="login-input-item m-t-b-10" placeholder="Mật khẩu">
+                        <button class="login-submit-btn" onclick="notify('coming soon...')">Đăng nhập</button>
+                        <hr>
+                        <div class="fb-login-button fb-login m-t-b-10" onlogin="checkLoginState();" data-width=""
+                            data-size="large" data-button-type="continue_with" data-layout="default"
+                            data-auto-logout-link="false" data-use-continue-as="false">
+                        </div>
+                    </div>
+
+                    <a class='fb-logout fb-item login-submit-btn' href="/" onclick="FB.logout();">
+                        Logout
+                        <i class="fa-solid fa-arrow-right-from-bracket"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="pseudo-loading">
+
+                <div class="pseudo-loading-image"></div>
+            </div>
+            <div class="clock-container">
+                <div class="clock">
+                </div>
+                <div class="time"></div>
+            </div>
+        </main>
     </div>
 
 </body>
